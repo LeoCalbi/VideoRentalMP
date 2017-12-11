@@ -2,17 +2,20 @@ package mp.videorental;
 
 public class SeniorCard extends CustomerCard {
 	
-	private static final Integer POINTS_TO_ADD = 3;
+	private static final Integer POINTS_TO_ADD = 2;
+	
+	public SeniorCard() {
+		super();
+	}
 	
 	@Override
 	public Double getDiscount(Double amount) {
-		// TODO Auto-generated method stub
-		return null;
+		return amount * 0.05;
 	}
 
 	@Override
-	public void makePoints() {
-		setPoints(getPoints() + POINTS_TO_ADD);
+	public Integer pointsToAdd() {
+		return POINTS_TO_ADD;
 	}
 
 }

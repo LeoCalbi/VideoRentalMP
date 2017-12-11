@@ -4,15 +4,18 @@ public class StandardCard extends CustomerCard {
 	
 	private static final Integer POINTS_TO_ADD = 1;
 	
+	public StandardCard() {
+		super();
+	}
+	
 	@Override
 	public Double getDiscount(Double amount) {
-		// TODO Auto-generated method stub
-		return null;
+		return 0.0;
 	}
 
 	@Override
-	public void makePoints() {
-		setPoints(getPoints() + POINTS_TO_ADD);
+	public Integer pointsToAdd() {
+		return POINTS_TO_ADD;
 	}
 
 }

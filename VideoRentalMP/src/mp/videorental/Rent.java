@@ -4,18 +4,20 @@ public class Rent {
 	
 	private Rentable item;
 	private Integer days;
+	private RentPriceStrategy strategy;
 	
-	public Rent(Rentable item, Integer days) {
+	public Rent(Rentable item, Integer days, RentPriceStrategy strategy) {
 		this.item = item;
 		this.days = days;
+		this.strategy = strategy;
 	}
 
-	public Double getPrice() {
+	private Double getInitialPrice() {
 		return item.getDailyPrice() * days;
 	}
 	
-	public Double getPrice(RentPriceStrategy strategy) {
-		return strategy.getPrice(this);
+	public Double getPrice() {
+		return strategy.getPrice(getInitialPrice());
 	}
 	
 }

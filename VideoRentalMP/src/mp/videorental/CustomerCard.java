@@ -3,10 +3,15 @@ import mp.videorental.exception.InsufficientFundsException;
 
 public abstract class CustomerCard implements Card {
 	
+	private static Integer lastSerialNumber = 0;
 	private Integer serialNumber;
 	private Double balance;
 	private Integer points;
 	
+	public CustomerCard() {
+		serialNumber = lastSerialNumber++;
+	}
+
 	public void deposit(Double amount) {
 		balance += amount;
 	}
@@ -16,12 +21,11 @@ public abstract class CustomerCard implements Card {
 		throw new InsufficientFundsException();
 	}
 
-	public Integer getPoints() {
-		return points;
+	@Override
+	public void makePoints() {
+		points += pointsToAdd();
 	}
 	
-	public void setPoints(Integer points) {
-		this.points = points;
-	}
+	public abstract Integer pointsToAdd();
 
 }

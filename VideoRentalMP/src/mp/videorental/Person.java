@@ -7,4 +7,10 @@ public abstract class Person {
 	private String surname;
 	private LocalDate birthday;
 	
+	public Person(String name, String surname, LocalDate birthday) {
+		this.name = name;
+		this.surname = surname;
+		this.birthday = birthday;
+	}
+
 }
