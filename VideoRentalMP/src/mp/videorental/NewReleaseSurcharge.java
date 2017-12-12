@@ -2,7 +2,7 @@ package mp.videorental;
 
 import mp.videorental.exception.AddToLeafCompositeException;
 
-public class NewMovieSurcharge implements RentPriceStrategy {
+public class NewReleaseSurcharge implements RentPriceStrategy {
 	
 	private static final Double SURCHARGE_PERCENT = 0.05;
 	

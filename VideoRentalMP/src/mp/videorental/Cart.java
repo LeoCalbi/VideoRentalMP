@@ -3,6 +3,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import mp.videorental.exception.EmptyRentListException;
+import mp.videorental.exception.MaximumRentedItemsException;
 import mp.videorental.exception.RentableNotInCartException;
 
 public class Cart {
@@ -19,8 +20,9 @@ public class Cart {
 		return toRent.iterator();
 	}
 	
-	public void add(Rent r) {
-		toRent.add(r);
+	public void add(Rent r) throws MaximumRentedItemsException {
+		if(Rented.MAX_RENTED - customer.getRentedSize() - toRent.size() > 0) toRent.add(r);
+		throw new MaximumRentedItemsException();
 	}
 	
 	public void remove(Rent r) throws RentableNotInCartException, EmptyRentListException {

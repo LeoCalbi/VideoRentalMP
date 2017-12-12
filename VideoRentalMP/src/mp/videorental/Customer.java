@@ -14,12 +14,17 @@ public abstract class Customer extends User {
 		this.address = address;
 		this.telephone = telephone;
 		this.card = makeCustomerCard();
+		this.rented = new Rented();
 	}
 	
 	public abstract CustomerCard makeCustomerCard();
 	
 	public Double getCardDiscount(Double amount) {
 		return card.getDiscount(amount);
+	}
+	
+	public Integer getRentedSize() {
+		return rented.size();
 	}
 	
 }
