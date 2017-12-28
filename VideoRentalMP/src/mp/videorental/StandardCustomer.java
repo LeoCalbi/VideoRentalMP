@@ -9,7 +9,7 @@ public class StandardCustomer extends Customer {
 
 	@Override
 	public CustomerCard makeCustomerCard() {
-		return new StudentCard();
+		return new StandardCard();
 	}
 	
 }

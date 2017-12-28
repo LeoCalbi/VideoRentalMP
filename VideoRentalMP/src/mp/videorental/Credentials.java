@@ -9,20 +9,12 @@ public class Credentials {
 		this.username = username;
 		this.password = password;
 	}
-
-	private String getUsername() {
-		return username;
-	}
-	
-	private String getPassword() {
-		return password;
-	}
 	
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Credentials) {
 			Credentials c = (Credentials) obj;
-			if(c.getUsername().equals(username) && c.getPassword().equals(password)) return true;
+			if(c.username.equals(username) && c.password.equals(password)) return true;
 		}
 		return false;
 	}

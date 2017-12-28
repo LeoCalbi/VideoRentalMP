@@ -3,8 +3,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import mp.videorental.exception.EmptyRentListException;
+import mp.videorental.exception.InsufficientFundsException;
 import mp.videorental.exception.MaximumRentedItemsException;
-import mp.videorental.exception.RentableNotInCartException;
+import mp.videorental.exception.AbsentRentException;
 
 public class Cart {
 	
@@ -25,9 +26,9 @@ public class Cart {
 		throw new MaximumRentedItemsException();
 	}
 	
-	public void remove(Rent r) throws RentableNotInCartException, EmptyRentListException {
+	public void remove(Rent r) throws AbsentRentException, EmptyRentListException {
 		if(toRent.size() <= 0) throw new EmptyRentListException();
-		if(!toRent.remove(r)) throw new RentableNotInCartException();
+		if(!toRent.remove(r)) throw new AbsentRentException();
 	}
 	
 	public Double getPrice() {
@@ -35,6 +36,16 @@ public class Cart {
 		Double price = 0.0;
 		while(it.hasNext()) price += it.next().getPrice();
 		return price - customer.getCardDiscount(price);
+	}
+	
+	public void pay() throws InsufficientFundsException {
+		Double price = getPrice();
+		customer.withdrawFromCard(price);
+		Iterator<Rent> it = getIterator();
+		while(it.hasNext()) {
+			customer.makeCardPoints();
+			customer.addRentedItem(it.next());
+		}
 	}
 	
 }

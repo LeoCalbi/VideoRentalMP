@@ -11,6 +11,10 @@ public abstract class CustomerCard implements Card {
 	public CustomerCard() {
 		serialNumber = lastSerialNumber++;
 	}
+	
+	public Double getBalance() {
+		return balance;
+	}
 
 	public void deposit(Double amount) {
 		balance += amount;
@@ -23,9 +27,13 @@ public abstract class CustomerCard implements Card {
 
 	@Override
 	public void makePoints() {
-		points += pointsToAdd();
+		points += pointsToHandle();
 	}
 	
-	public abstract Integer pointsToAdd();
+	public void removePoints() {
+		points -= pointsToHandle();	
+	}
+	
+	public abstract Integer pointsToHandle();
 
 }

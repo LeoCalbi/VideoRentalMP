@@ -1,9 +1,11 @@
 package mp.videorental;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import mp.videorental.exception.EmptyRentListException;
-import mp.videorental.exception.MaximumRentedItemsException;
-import mp.videorental.exception.RentableNotInCartException;
+import mp.videorental.exception.AbsentRentException;
 
 public class Rented {
 	
@@ -14,14 +16,38 @@ public class Rented {
 		rented = new LinkedList<Rent>();
 	}
 	
-	public void add(Rent r) throws MaximumRentedItemsException {
-		if(rented.size() < MAX_RENTED) rented.add(r);
-		throw new MaximumRentedItemsException();
+	public Iterator<Rent> getIterator() {
+		return rented.iterator();
 	}
 	
-	public void remove(Rent r) throws RentableNotInCartException, EmptyRentListException {
+	public void add(Rent r) {
+		rented.add(r);
+	}
+	
+	public boolean restitution(Rentable r) throws AbsentRentException, EmptyRentListException {
+		boolean found = false, expired = false;
 		if(rented.size() <= 0) throw new EmptyRentListException();
-		if(!rented.remove(r)) throw new RentableNotInCartException();
+		Iterator<Rent> it = getIterator();
+		while(it.hasNext()) {
+			Rent current = it.next();
+			if(current.compareRentable(r)) {
+				found = true;
+				expired = isRentExpired(current);
+				current.restitution();
+				it.remove();
+				break;
+			}
+		}
+		if(!found) throw new AbsentRentException();
+		return expired;
+	}
+	
+	private boolean isRentExpired(Rent r) {
+		LocalDate currentTime = LocalDate.now();
+		LocalDate rentDate = r.getRentDate();
+		long variance = ChronoUnit.DAYS.between(rentDate, currentTime);
+		if(variance > r.getDays()) return true;
+		return false;
 	}
 	
 	public Integer size() {

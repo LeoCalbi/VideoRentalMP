@@ -2,7 +2,7 @@ package mp.videorental;
 
 public class StudentCard extends CustomerCard {
 	
-	private static final Integer POINTS_TO_ADD = 3;
+	private static final Integer POINTS_TO_HANDLE = 3;
 	
 	public StudentCard() {
 		super();
@@ -14,8 +14,8 @@ public class StudentCard extends CustomerCard {
 	}
 
 	@Override
-	public Integer pointsToAdd() {
-		return POINTS_TO_ADD;
+	public Integer pointsToHandle() {
+		return POINTS_TO_HANDLE;
 	}
 
 }

@@ -40,8 +40,17 @@ public abstract class MovieBox implements Rentable {
 	}
 
 	@Override
-	public void restitution(Rent r) {
+	public void restitution() {
 		isAvailable = true;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof MovieBox) {
+			MovieBox m = (MovieBox) obj;
+			return m.serialNumber.equals(serialNumber);
+		}
+		return false;
 	}
 	
 }

@@ -1,5 +1,4 @@
 package mp.videorental;
-
 import java.time.LocalDate;
 
 public class SeniorCustomer extends Customer {
