@@ -9,11 +9,17 @@ public abstract class CustomerCard implements Card {
 	private Integer points;
 	
 	public CustomerCard() {
+		balance = 0.0;
+		points = 0;
 		serialNumber = lastSerialNumber++;
 	}
 	
 	public Double getBalance() {
 		return balance;
+	}
+	
+	public Integer getPoints() {
+		return points;
 	}
 
 	public void deposit(Double amount) {
@@ -22,7 +28,7 @@ public abstract class CustomerCard implements Card {
 	
 	public void withdraw(Double amount) throws InsufficientFundsException {
 		if(balance - amount >= 0) balance -= amount;
-		throw new InsufficientFundsException();
+		else throw new InsufficientFundsException();
 	}
 
 	@Override

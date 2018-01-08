@@ -20,6 +20,10 @@ public abstract class MovieBox implements Rentable {
 		this.rentFactory = new RentFactory();
 	}
 
+	public boolean isAvailable() {
+		return isAvailable;
+	}
+	
 	@Override
 	public Double getDailyPrice() {
 		return dailyPrice;

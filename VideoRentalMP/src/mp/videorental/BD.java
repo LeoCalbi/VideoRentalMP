@@ -2,7 +2,7 @@ package mp.videorental;
 
 public class BD extends MovieBox {
 
-	public BD(Movie movie, Integer serialNumber, Double dailyPrice) {
+	public BD(Movie movie, Double dailyPrice) {
 		super(movie, dailyPrice);
 	}
 	

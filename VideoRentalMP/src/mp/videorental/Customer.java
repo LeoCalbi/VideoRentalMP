@@ -21,8 +21,12 @@ public abstract class Customer extends User {
 	
 	public abstract CustomerCard makeCustomerCard();
 	
-	public final void setCard() {
-		if(card == null) card = makeCustomerCard();
+	public final boolean setCard() {
+		if(card == null) {
+			card = makeCustomerCard();
+			return true;
+		}
+		return false;
 	}
 	
 	public Double getCardDiscount(Double amount) {
@@ -43,6 +47,11 @@ public abstract class Customer extends User {
 	public void withdrawFromCard(Double amount) throws InsufficientFundsException {
 		setCard();
 		card.withdraw(amount);
+	}
+	
+	public Integer getCardPoints() {
+		setCard();
+		return card.getPoints();
 	}
 	
 	public void makeCardPoints() {
