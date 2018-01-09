@@ -17,7 +17,12 @@ import mp.videorental.Over10DaysDiscount;
   CredentialsTest.class,
   NewReleaseSurchargeTest.class,
   Over10DaysDiscountTest.class,
-  RentPriceStrategyCompoundTest.class
+  RentPriceStrategyCompoundTest.class,
+  BDTest.class,
+  DVDTest.class,
+  CartTest.class,
+  RentedTest.class,
+  RentTest.class
 })
 
 public class TestSuite {}

@@ -1,8 +1,10 @@
 package mp.videorental;
 import java.time.LocalDate;
 
+import mp.videorental.exception.NotRentedException;
+
 public class Rent {
-	
+	//TODO aggiungere interfaccia per astrazione
 	private Rentable item;
 	private Integer days;
 	private LocalDate rentDate;
@@ -12,6 +14,13 @@ public class Rent {
 		this.item = item;
 		this.days = days;
 		this.strategy = strategy;
+		this.rentDate = LocalDate.now();
+	}
+	
+	public Rent(Rentable item, Integer days) {
+		this.item = item;
+		this.days = days;
+		this.strategy = new RentPriceStrategyCompound();
 		this.rentDate = LocalDate.now();
 	}
 	
@@ -31,12 +40,20 @@ public class Rent {
 		return strategy.getPrice(getInitialPrice());
 	}
 	
-	public void restitution() {
+	public void restitution() throws NotRentedException {
 		item.restitution();
 	}
 	
 	public boolean compareRentable(Rentable r) {
-		return r.equals(item);
+		return item.equals(r);
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Rent) {
+			Rent other = (Rent) obj;
+			return compareRentable(other.item) && rentDate.equals(other.rentDate) && days.equals(other.days);
+		}
+		return false;
+	}
 }

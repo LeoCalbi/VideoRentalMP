@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import mp.videorental.exception.EmptyRentListException;
+import mp.videorental.exception.NotRentedException;
 import mp.videorental.exception.AbsentRentException;
 
 public class Rented {
@@ -24,7 +25,7 @@ public class Rented {
 		rented.add(r);
 	}
 	
-	public boolean restitution(Rentable r) throws AbsentRentException, EmptyRentListException {
+	public boolean restitution(Rentable r) throws AbsentRentException, EmptyRentListException, NotRentedException {
 		boolean found = false, expired = false;
 		if(rented.size() <= 0) throw new EmptyRentListException();
 		Iterator<Rent> it = getIterator();

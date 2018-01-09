@@ -3,8 +3,8 @@ import java.time.LocalDate;
 
 public class StandardCustomer extends Customer {
 
-	public StandardCustomer(String name, String surname, LocalDate birthday, String address, String telephone) {
-		super(name, surname, birthday, address, telephone);
+	public StandardCustomer(String socialSecurityNumber,String name, String surname, LocalDate birthday, String address, String telephone, Credentials credentials) {
+		super(socialSecurityNumber,name, surname, birthday, address, telephone, credentials);
 	}
 
 	@Override

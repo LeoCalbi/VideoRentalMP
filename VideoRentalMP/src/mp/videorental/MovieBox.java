@@ -2,16 +2,17 @@ package mp.videorental;
 
 import java.time.LocalDate;
 import mp.videorental.exception.AlreadyRentedException;
+import mp.videorental.exception.NotRentedException;
 
 public abstract class MovieBox implements Rentable {
-	
+
 	private Movie movie;
 	private static Integer lastSerialNumber = 0;
 	private Integer serialNumber;
 	private Double dailyPrice;
 	private Boolean isAvailable;
 	private RentFactory rentFactory;
-	
+
 	public MovieBox(Movie movie, Double dailyPrice) {
 		this.movie = movie;
 		this.dailyPrice = dailyPrice;
@@ -23,38 +24,39 @@ public abstract class MovieBox implements Rentable {
 	public boolean isAvailable() {
 		return isAvailable;
 	}
-	
+
 	@Override
 	public Double getDailyPrice() {
 		return dailyPrice;
 	}
-	
+
 	@Override
 	public LocalDate getReleaseDate() {
 		return movie.getReleaseDate();
 	}
-	
+
 	@Override
 	public Rent rent(Integer days) throws AlreadyRentedException {
-		if(isAvailable) {
+		if (isAvailable) {
 			isAvailable = false;
 			return rentFactory.makeRent(this, days);
-		}
-		else throw new AlreadyRentedException();
+		} else
+			throw new AlreadyRentedException();
 	}
 
 	@Override
-	public void restitution() {
-		isAvailable = true;
+	public void restitution() throws NotRentedException {
+		if (!isAvailable) isAvailable = true;
+		else throw new NotRentedException();
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof MovieBox) {
+		if (obj instanceof MovieBox) {
 			MovieBox m = (MovieBox) obj;
 			return m.serialNumber.equals(serialNumber);
 		}
 		return false;
 	}
-	
+
 }

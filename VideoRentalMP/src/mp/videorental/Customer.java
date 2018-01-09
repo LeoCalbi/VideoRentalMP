@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import mp.videorental.exception.AbsentRentException;
 import mp.videorental.exception.EmptyRentListException;
 import mp.videorental.exception.InsufficientFundsException;
+import mp.videorental.exception.NotRentedException;
 
 public abstract class Customer extends User {
 
@@ -12,13 +13,29 @@ public abstract class Customer extends User {
 	private CustomerCard card;
 	private Rented rented;
 	
-	public Customer(String name, String surname, LocalDate birthday, String address, String telephone) {
-		super(name, surname, birthday);
+	public Customer(String socialSecurityNumber,String name, String surname, LocalDate birthday, String address, String telephone, Credentials credentials) {
+		super(socialSecurityNumber,name, surname, birthday, credentials);
 		this.address = address;
 		this.telephone = telephone;
 		this.rented = new Rented();
 	}
 	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
 	public abstract CustomerCard makeCustomerCard();
 	
 	public final boolean setCard() {
@@ -64,10 +81,11 @@ public abstract class Customer extends User {
 	}
 	
 	public void addRentedItem(Rent r) {
+		setCard();
 		rented.add(r);
 	}
 	
-	public void restitution(Rentable r) throws AbsentRentException, EmptyRentListException {
+	public void restitution(Rentable r) throws AbsentRentException, EmptyRentListException, NotRentedException {
 		if(rented.restitution(r)) card.removePoints();
 	}
 	

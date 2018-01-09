@@ -6,6 +6,7 @@ import mp.videorental.exception.EmptyRentListException;
 import mp.videorental.exception.InsufficientFundsException;
 import mp.videorental.exception.MaximumRentedItemsException;
 import mp.videorental.exception.AbsentRentException;
+import mp.videorental.exception.AlreadyRentedException;
 
 public class Cart {
 	
@@ -21,9 +22,12 @@ public class Cart {
 		return toRent.iterator();
 	}
 	
-	public void add(Rent r) throws MaximumRentedItemsException {
-		if(Rented.MAX_RENTED - customer.getRentedSize() - toRent.size() > 0) toRent.add(r);
-		throw new MaximumRentedItemsException();
+	public void add(Rent r) throws MaximumRentedItemsException, AlreadyRentedException {
+		if(Rented.MAX_RENTED - customer.getRentedSize() - toRent.size() > 0) {
+			if(!toRent.contains(r))toRent.add(r);
+			else throw new AlreadyRentedException();
+		}
+		else throw new MaximumRentedItemsException();
 	}
 	
 	public void remove(Rent r) throws AbsentRentException, EmptyRentListException {

@@ -4,7 +4,7 @@ import java.time.temporal.ChronoUnit;
 import mp.videorental.exception.AddToLeafCompositeException;
 
 public class RentFactory {
-	
+	//TODO Richiedere come evitare if a cascata per la creazione sconti Strategy
 	public Rent makeRent(Rentable item, Integer days) {
 		RentPriceStrategyCompound r = new RentPriceStrategyCompound();
 		if(isNewRelease(item)) {

@@ -13,7 +13,7 @@ public class StandardCustomerTest {
 	
 	@Before
 	public void initFixture() {
-		customer = new StandardCustomer("Alessio", "Falai", LocalDate.of(1997, 10, 12), "Via caduti sul lavoro", "3347703001");
+		customer = new StandardCustomer("123","Alessio", "Falai", LocalDate.of(1997, 10, 12), "Via caduti sul lavoro", "3347703001",new Credentials("falaiAlessio", "test"));
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ public class StandardCustomerTest {
 	
 	@Test
 	public void testAddRentedItem() throws AlreadyRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Bellissimo"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
 		Rent b = a.rent(10);
 		Integer originalSize = customer.getRentedSize();
 		customer.addRentedItem(b);
@@ -97,26 +97,44 @@ public class StandardCustomerTest {
 	}
 
 	@Test
-	public void testRestituition() throws EmptyRentListException, AbsentRentException, AlreadyRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Bellissimo"), LocalDate.of(2000, 10, 11)), 5.5);
+	public void testRestituition() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
+		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
 		Rent b = a.rent(10);
 		Integer originalSize = customer.getRentedSize();
 		customer.addRentedItem(b);
 		customer.restitution(a);
 		assertEquals(originalSize, customer.getRentedSize());
 	}
-
+	
+	@Test
+	public void testRestituitionExpired() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
+		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		Rent b = a.rent(-1);
+		customer.addRentedItem(b);
+		customer.restitution(a);
+		Integer expectedPoints = -1;
+		assertEquals(expectedPoints, customer.getCardPoints());
+	}
+	
 	@Test(expected = EmptyRentListException.class)
-	public void testRestituitionEmptyList() throws EmptyRentListException, AbsentRentException {
-		customer.restitution(new DVD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Bello"), LocalDate.of(2010, 5, 10)), 3.0));
+	public void testRestituitionEmptyList() throws EmptyRentListException, AbsentRentException, NotRentedException {
+		customer.restitution(new DVD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0));
 	}
 	
 	@Test(expected = AbsentRentException.class)
-	public void testRestituitionAbsentRent() throws EmptyRentListException, AbsentRentException, AlreadyRentedException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Bello"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		DVD b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Bellissimo"), LocalDate.of(2000, 10, 11)), 5.5);
+	public void testRestituitionAbsentRent() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
+		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
+		DVD b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 5.5);
 		customer.addRentedItem(a);
 		customer.restitution(b);
+	}
+	
+	@Test(expected = NotRentedException.class)
+	public void testRestitutionNotRented() throws AlreadyRentedException, NotRentedException {
+		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 5.5);
+		Rent b = a.rent(10);
+		b.restitution();
+		b.restitution();
 	}
 	
 }
