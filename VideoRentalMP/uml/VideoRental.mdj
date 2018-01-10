@@ -11114,53 +11114,6 @@
 							}
 						},
 						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFgJrX55WkFuD0=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 728,
-							"top": 752,
-							"width": 100,
-							"height": 50,
-							"autoResize": false,
-							"text": "Observed by Rented",
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteLinkView",
-							"_id": "AAAAAAFgJrX552kIux0=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"head": {
-								"$ref": "AAAAAAFgJrX55WkFuD0="
-							},
-							"tail": {
-								"$ref": "AAAAAAFgJq7HnF7+EMo="
-							},
-							"lineStyle": 1,
-							"points": "792:731;785:751"
-						},
-						{
 							"_type": "UMLAssociationView",
 							"_id": "AAAAAAFgJrtE0W2eLaQ=",
 							"_parent": {
@@ -16790,76 +16743,6 @@
 							},
 							"lineStyle": 1,
 							"points": "1476:351;1474:322"
-						},
-						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFgKyLyUkOyV24=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 1647.87060546875,
-							"top": 656,
-							"width": 125.650390625,
-							"height": 51,
-							"autoResize": false,
-							"text": "getCardDiscount is an abstract method",
-							"wordWrap": true
-						},
-						{
-							"_type": "UMLNoteLinkView",
-							"_id": "AAAAAAFgKyLyV0O1uYU=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"head": {
-								"$ref": "AAAAAAFgKyLyUkOyV24="
-							},
-							"tail": {
-								"$ref": "AAAAAAFgJkYroj9vgdM="
-							},
-							"lineStyle": 1,
-							"points": "1603:691;1647:687"
-						},
-						{
-							"_type": "UMLNoteView",
-							"_id": "AAAAAAFgMVG6n4O04vw=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"visible": true,
-							"enabled": true,
-							"lineColor": "#000000",
-							"fillColor": "#ffffff",
-							"fontColor": "#000000",
-							"font": "Arial;13;0",
-							"showShadow": true,
-							"containerChangeable": false,
-							"containerExtending": false,
-							"left": 152,
-							"top": 456,
-							"width": 177,
-							"height": 57,
-							"autoResize": false,
-							"text": "Define copy constructors in every class",
-							"wordWrap": true
 						},
 						{
 							"_type": "UMLClassView",
