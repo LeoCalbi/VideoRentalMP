@@ -1,7 +1,7 @@
 package mp.videorental;
 import java.time.LocalDate;
 
-public abstract class Person implements Storable{
+public abstract class Person implements Storable {
 	
 	private String socialSecurityNumber;
 	private String name;

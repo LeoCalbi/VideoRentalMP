@@ -1,7 +1,7 @@
 package mp.videorental;
 import java.time.LocalDate;
 
-public class Movie implements Storable{
+public class Movie implements Storable {
 	//TODO controllare get di classi Director e Genre
 	private String title;
 	private Director director;
