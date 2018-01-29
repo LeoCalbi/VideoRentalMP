@@ -11,22 +11,22 @@ import mp.videorental.exception.AddToLeafCompositeException;
 import mp.videorental.exception.AlreadyRentedException;
 import mp.videorental.exception.NotRentedException;
 
-public class RentTest {
+public class ComplexRentTest {
 	Rent rent;
 
 	private Rent rentWithOver10DaysDiscount() {
-		return new Rent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0),20,new Over10DaysDiscount());
+		return new ComplexRent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0),20,new Over10DaysDiscount());
 	}
 	
 	private Rent rentWithNewReleaseSurcharge() {
-		return new Rent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2018, 1, 1)), 7.0),1,new NewReleaseSurcharge());
+		return new ComplexRent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2018, 1, 1)), 7.0),1,new NewReleaseSurcharge());
 	}
 	
 	private Rent rentWithPriceStrategyCompound() throws AddToLeafCompositeException {
 		RentPriceStrategy s = new RentPriceStrategyCompound();
 		s.add(new Over10DaysDiscount());
 		s.add(new NewReleaseSurcharge());
-		return new Rent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2018, 1, 1)), 7.0),20,s);
+		return new ComplexRent(new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2018, 1, 1)), 7.0),20,s);
 	}
 	
 	@Test
@@ -53,7 +53,7 @@ public class RentTest {
 	@Test
 	public void testRestitution() throws NotRentedException, AlreadyRentedException {
 		MovieBox a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0);
-		rent = a.rent(20);
+		rent = a.rent(20,new Over10DaysDiscount());
 		rent.restitution();
 		assertTrue(a.isAvailable());
 	}
@@ -61,7 +61,7 @@ public class RentTest {
 	@Test(expected = NotRentedException.class)
 	public void testRestitutionNotRented() throws NotRentedException, AlreadyRentedException {
 		MovieBox a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0);
-		rent = a.rent(20);
+		rent = a.rent(20,new Over10DaysDiscount());
 		a.restitution();
 		rent.restitution();
 	}
@@ -70,7 +70,7 @@ public class RentTest {
 	public void testCompareRentable() throws AlreadyRentedException {
 		MovieBox a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0);
 		MovieBox b = new BD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 10.0);
-		rent = a.rent(20);
+		rent = a.rent(20,new Over10DaysDiscount());
 		assertTrue(rent.compareRentable(a));
 		assertFalse(rent.compareRentable(b));
 	}
@@ -79,11 +79,11 @@ public class RentTest {
 	public void testEquals() throws AlreadyRentedException, NotRentedException {
 		MovieBox a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 7.0);
 		MovieBox b = new BD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 10.0);
-		rent = a.rent(20);
+		rent = a.rent(20,new Over10DaysDiscount());
 		assertTrue(rent.equals(rent));
 		assertFalse(rent.equals(b.rent(10)));
 		rent.restitution();
-		assertTrue(rent.equals(a.rent(20)));
+		assertTrue(rent.equals(a.rent(20,new Over10DaysDiscount())));
 		
 	}
 

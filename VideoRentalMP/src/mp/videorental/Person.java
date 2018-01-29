@@ -1,7 +1,7 @@
 package mp.videorental;
 import java.time.LocalDate;
 
-public abstract class Person {
+public abstract class Person implements Storable{
 	
 	private String socialSecurityNumber;
 	private String name;
@@ -34,5 +34,16 @@ public abstract class Person {
 			if(socialSecurityNumber.equals(other.socialSecurityNumber)) return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public void add(Administrator admin) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void remove(Administrator admin) {
+		// TODO Auto-generated method stub
+		
 	}
 }

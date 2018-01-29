@@ -14,4 +14,14 @@ public abstract class User extends Person {
 		return c.equals(credentials);
 	}
 	
+	@Override
+	public void add(Administrator admin) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void remove(Administrator admin) {
+		// TODO Auto-generated method stub
+		
+	}
 }

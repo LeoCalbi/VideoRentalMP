@@ -1,7 +1,7 @@
 package mp.videorental;
 import java.time.LocalDate;
 
-public class Movie {
+public class Movie implements Storable{
 	//TODO controllare get di classi Director e Genre
 	private String title;
 	private Director director;
@@ -38,5 +38,16 @@ public class Movie {
 			if(title.equals(other.title) && director.equals(other.director) && genre.equals(other.genre) && releaseDate.equals(other.releaseDate)) return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void add(Administrator admin) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void remove(Administrator admin) {
+		// TODO Auto-generated method stub
+		
 	}
 }

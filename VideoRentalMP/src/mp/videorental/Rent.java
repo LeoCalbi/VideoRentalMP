@@ -3,24 +3,14 @@ import java.time.LocalDate;
 
 import mp.videorental.exception.NotRentedException;
 
-public class Rent {
-	//TODO aggiungere interfaccia per astrazione
+public abstract class Rent {
 	private Rentable item;
 	private Integer days;
 	private LocalDate rentDate;
-	private RentPriceStrategy strategy;
-	
-	public Rent(Rentable item, Integer days, RentPriceStrategy strategy) {
-		this.item = item;
-		this.days = days;
-		this.strategy = strategy;
-		this.rentDate = LocalDate.now();
-	}
 	
 	public Rent(Rentable item, Integer days) {
 		this.item = item;
 		this.days = days;
-		this.strategy = new RentPriceStrategyCompound();
 		this.rentDate = LocalDate.now();
 	}
 	
@@ -31,13 +21,9 @@ public class Rent {
 	public LocalDate getRentDate() {
 		return rentDate;
 	}
-
-	private Double getInitialPrice() {
-		return item.getDailyPrice() * days;
-	}
 	
 	public Double getPrice() {
-		return strategy.getPrice(getInitialPrice());
+			return item.getDailyPrice() * days;
 	}
 	
 	public void restitution() throws NotRentedException {

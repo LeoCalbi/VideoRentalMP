@@ -1,24 +1,21 @@
 package mp.videorental;
 
-import java.time.LocalDate;
 import mp.videorental.exception.AlreadyRentedException;
 import mp.videorental.exception.NotRentedException;
 
-public abstract class MovieBox implements Rentable {
+public abstract class MovieBox implements Rentable,Storable{
 
 	private Movie movie;
 	private static Integer lastSerialNumber = 0;
 	private Integer serialNumber;
 	private Double dailyPrice;
 	private Boolean isAvailable;
-	private RentFactory rentFactory;
 
 	public MovieBox(Movie movie, Double dailyPrice) {
 		this.movie = movie;
 		this.dailyPrice = dailyPrice;
 		this.serialNumber = lastSerialNumber++;
 		this.isAvailable = true;
-		this.rentFactory = new RentFactory();
 	}
 
 	public boolean isAvailable() {
@@ -31,15 +28,19 @@ public abstract class MovieBox implements Rentable {
 	}
 
 	@Override
-	public LocalDate getReleaseDate() {
-		return movie.getReleaseDate();
+	public Rent rent(Integer days,RentPriceStrategy strategy) throws AlreadyRentedException {
+		if (isAvailable) {
+			isAvailable = false;
+			return new ComplexRent(this,days,strategy);
+		} else
+			throw new AlreadyRentedException();
 	}
-
+	
 	@Override
 	public Rent rent(Integer days) throws AlreadyRentedException {
 		if (isAvailable) {
 			isAvailable = false;
-			return rentFactory.makeRent(this, days);
+			return new SimpleRent(this,days);
 		} else
 			throw new AlreadyRentedException();
 	}
@@ -58,5 +59,15 @@ public abstract class MovieBox implements Rentable {
 		}
 		return false;
 	}
+	
+	@Override
+	public void add(Administrator admin) {
+		// TODO Auto-generated method stub
+	}
 
+	@Override
+	public void remove(Administrator admin) {
+		// TODO Auto-generated method stub
+		
+	}
 }

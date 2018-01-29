@@ -22,7 +22,8 @@ import mp.videorental.Over10DaysDiscount;
   DVDTest.class,
   CartTest.class,
   RentedTest.class,
-  RentTest.class
+  ComplexRentTest.class,
+  SimpleRentTest.class
 })
 
 public class TestSuite {}

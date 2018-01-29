@@ -1,6 +1,6 @@
 package mp.videorental;
 
-public class Genre {
+public class Genre implements Storable{
 	
 	private String description;
 	
@@ -21,6 +21,15 @@ public class Genre {
 		return false;
 	}
 	
-	
+	@Override
+	public void add(Administrator admin) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void remove(Administrator admin) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
