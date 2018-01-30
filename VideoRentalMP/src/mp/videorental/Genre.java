@@ -1,6 +1,6 @@
 package mp.videorental;
 
-public class Genre implements Storable{
+public class Genre implements Storable {
 	
 	private String description;
 	

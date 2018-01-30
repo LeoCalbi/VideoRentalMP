@@ -3,7 +3,7 @@ package mp.videorental;
 import mp.videorental.exception.AlreadyRentedException;
 import mp.videorental.exception.NotRentedException;
 
-public abstract class MovieBox implements Rentable,Storable{
+public abstract class MovieBox implements Rentable, Storable {
 
 	private Movie movie;
 	private static Integer lastSerialNumber = 0;
@@ -32,8 +32,7 @@ public abstract class MovieBox implements Rentable,Storable{
 		if (isAvailable) {
 			isAvailable = false;
 			return new ComplexRent(this,days,strategy);
-		} else
-			throw new AlreadyRentedException();
+		} else throw new AlreadyRentedException();
 	}
 	
 	@Override
@@ -41,8 +40,7 @@ public abstract class MovieBox implements Rentable,Storable{
 		if (isAvailable) {
 			isAvailable = false;
 			return new SimpleRent(this,days);
-		} else
-			throw new AlreadyRentedException();
+		} else throw new AlreadyRentedException();
 	}
 
 	@Override
@@ -70,4 +68,5 @@ public abstract class MovieBox implements Rentable,Storable{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
