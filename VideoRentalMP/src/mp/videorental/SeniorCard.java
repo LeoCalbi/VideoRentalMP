@@ -2,6 +2,7 @@ package mp.videorental;
 
 public class SeniorCard extends CustomerCard {
 	
+	private static final long serialVersionUID = 6970991005662054087L;
 	private static final Integer POINTS_TO_HANDLE = 2;
 	
 	public SeniorCard() {

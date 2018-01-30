@@ -18,7 +18,7 @@ public class StorableHandlerTest {
 	}
 	
 	@Test
-	public void testWrite() throws FileNotFoundException, IOException {
+	public void testWrite() throws FileNotFoundException, IOException, ClassNotFoundException {
 		storableHandler.write();
 	}
 

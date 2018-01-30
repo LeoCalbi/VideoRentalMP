@@ -1,10 +1,19 @@
 package mp.videorental;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDate;
 
-public class Director extends Person{
+import mp.videorental.exception.InvalidAdminException;
+import mp.videorental.exception.StorableAlreadyPresentException;
+import mp.videorental.exception.StorableNotPresentException;
+
+public class Director extends Person {
+	
+	private static final long serialVersionUID = 3199925935959912562L;
+
 	//TODO controllare struttura per codice fiscale
 	public Director(String name, String surname, LocalDate birthday) {
-		super("",name, surname, birthday);
+		super("", name, surname, birthday);
 	}
 	
 	@Override
@@ -15,4 +24,15 @@ public class Director extends Person{
 		}
 		return false;
 	}
+	
+	@Override
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		DirectorRepository.getInstance().add(this, admin);
+	}
+
+	@Override
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		DirectorRepository.getInstance().remove(this, admin);
+	}
+	
 }

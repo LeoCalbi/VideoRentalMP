@@ -1,8 +1,10 @@
 package mp.videorental;
+
 import mp.videorental.exception.InsufficientFundsException;
 
 public abstract class CustomerCard implements Card {
 	
+	private static final long serialVersionUID = -6512048992281602710L;
 	private static Integer lastSerialNumber = 0;
 	private Integer serialNumber;
 	private Double balance;

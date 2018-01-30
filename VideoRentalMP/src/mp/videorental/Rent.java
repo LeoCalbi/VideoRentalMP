@@ -1,9 +1,12 @@
 package mp.videorental;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import mp.videorental.exception.NotRentedException;
 
-public abstract class Rent {
+public abstract class Rent implements Serializable {
+	
+	private static final long serialVersionUID = -6264812059960295609L;
 	private Rentable item;
 	private Integer days;
 	private LocalDate rentDate;
@@ -42,4 +45,5 @@ public abstract class Rent {
 		}
 		return false;
 	}
+	
 }

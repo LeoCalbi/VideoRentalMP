@@ -1,4 +1,5 @@
 package mp.videorental;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Iterator;
@@ -8,8 +9,9 @@ import mp.videorental.exception.EmptyRentListException;
 import mp.videorental.exception.NotRentedException;
 import mp.videorental.exception.AbsentRentException;
 
-public class Rented {
-	
+public class Rented implements Serializable {
+
+	private static final long serialVersionUID = -5236882462605277312L;
 	private List<Rent> rented;
 	public static final Integer MAX_RENTED = 3;
 	

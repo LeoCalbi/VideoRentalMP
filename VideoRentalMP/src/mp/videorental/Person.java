@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 public abstract class Person implements Storable {
 	
+	private static final long serialVersionUID = -1814749676914910477L;
 	private String socialSecurityNumber;
 	private String name;
 	private String surname;
@@ -28,6 +29,17 @@ public abstract class Person implements Storable {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((birthday == null) ? 0 : birthday.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((socialSecurityNumber == null) ? 0 : socialSecurityNumber.hashCode());
+		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof Person) {
 			Person other = (Person) obj;
@@ -36,14 +48,4 @@ public abstract class Person implements Storable {
 		return false;
 	}
 	
-	@Override
-	public void add(Administrator admin) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void remove(Administrator admin) {
-		// TODO Auto-generated method stub
-		
-	}
 }

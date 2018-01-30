@@ -3,6 +3,7 @@ import mp.videorental.exception.AddToLeafCompositeException;
 
 public class Over10DaysDiscount implements RentPriceStrategy {
 	
+	private static final long serialVersionUID = 5891180520015445478L;
 	private static final Double DISCOUNT_PERCENT = 0.10;
 	
 	@Override

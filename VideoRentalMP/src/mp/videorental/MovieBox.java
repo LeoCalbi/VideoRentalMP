@@ -1,10 +1,16 @@
 package mp.videorental;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import mp.videorental.exception.AlreadyRentedException;
+import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.NotRentedException;
+import mp.videorental.exception.StorableAlreadyPresentException;
+import mp.videorental.exception.StorableNotPresentException;
 
 public abstract class MovieBox implements Rentable, Storable {
 
+	private static final long serialVersionUID = 3360319400998117600L;
 	private Movie movie;
 	private static Integer lastSerialNumber = 0;
 	private Integer serialNumber;
@@ -50,6 +56,14 @@ public abstract class MovieBox implements Rentable, Storable {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
+		return result;
+	}
+
+	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof MovieBox) {
 			MovieBox m = (MovieBox) obj;
@@ -59,14 +73,13 @@ public abstract class MovieBox implements Rentable, Storable {
 	}
 	
 	@Override
-	public void add(Administrator admin) {
-		// TODO Auto-generated method stub
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		MovieBoxRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) {
-		// TODO Auto-generated method stub
-		
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		MovieBoxRepository.getInstance().remove(this, admin);
 	}
 	
 }

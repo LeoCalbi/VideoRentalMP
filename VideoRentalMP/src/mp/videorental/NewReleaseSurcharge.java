@@ -4,6 +4,7 @@ import mp.videorental.exception.AddToLeafCompositeException;
 
 public class NewReleaseSurcharge implements RentPriceStrategy {
 	
+	private static final long serialVersionUID = 7873690271578694361L;
 	private static final Double SURCHARGE_PERCENT = 0.05;
 	
 	@Override

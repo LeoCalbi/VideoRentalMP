@@ -1,4 +1,5 @@
 package mp.videorental;
+
 import mp.videorental.exception.AlreadyRentedException;
 import mp.videorental.exception.NotRentedException;
 

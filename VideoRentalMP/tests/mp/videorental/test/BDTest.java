@@ -11,9 +11,11 @@ import mp.videorental.*;
 import mp.videorental.exception.*;
 
 public class BDTest {
+	
 	BD moviebox;
+	
 	@Before
-	public void initFixture(){
+	public void initFixture() {
 		moviebox = new BD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
 	}
 

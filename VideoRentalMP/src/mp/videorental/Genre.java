@@ -1,7 +1,15 @@
 package mp.videorental;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import mp.videorental.exception.InvalidAdminException;
+import mp.videorental.exception.StorableAlreadyPresentException;
+import mp.videorental.exception.StorableNotPresentException;
+
 public class Genre implements Storable {
 	
+	private static final long serialVersionUID = -913687112060192852L;
 	private String description;
 	
 	public Genre(String description) {
@@ -22,14 +30,21 @@ public class Genre implements Storable {
 	}
 	
 	@Override
-	public void add(Administrator admin) {
-		// TODO Auto-generated method stub
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		return result;
+	}
+	
+	@Override
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		GenreRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) {
-		// TODO Auto-generated method stub
-		
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+		GenreRepository.getInstance().remove(this, admin);
 	}
 	
 }

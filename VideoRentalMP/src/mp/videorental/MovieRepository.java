@@ -1,10 +1,11 @@
 package mp.videorental;
 
-import mp.videorental.exception.RepositoryNotInitializedException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
-@SuppressWarnings("serial")
 public class MovieRepository extends Repository<Movie> {
 	
+	private static final long serialVersionUID = -2384158971984703576L;
 	private static MovieRepository instance = new MovieRepository();
 	
 	private MovieRepository() {}
@@ -13,8 +14,8 @@ public class MovieRepository extends Repository<Movie> {
 		MovieRepository.instance=instance;
 	}
 	
-	public static MovieRepository getInstance() throws RepositoryNotInitializedException {
-		 if(instance == null) throw new RepositoryNotInitializedException();
+	public static MovieRepository getInstance() throws FileNotFoundException, ClassNotFoundException, IOException {
+		 if(instance == null) StorableHandler.getInstance().read();
 		 return instance;
 	}
 

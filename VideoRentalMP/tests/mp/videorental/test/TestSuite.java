@@ -23,7 +23,8 @@ import mp.videorental.Over10DaysDiscount;
   CartTest.class,
   RentedTest.class,
   ComplexRentTest.class,
-  SimpleRentTest.class
+  SimpleRentTest.class,
+  AdministratorRepositoryTest.class
 })
 
 public class TestSuite {}

@@ -1,5 +1,6 @@
 package mp.videorental;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,27 +22,39 @@ public class StorableHandler {
 	}
 	
 	public void read() throws FileNotFoundException, IOException, ClassNotFoundException {
-		 in = new ObjectInputStream (new FileInputStream("data/MovieBox"));
-		 new MovieBoxRepository((MovieBoxRepository) in.readObject());
-		 in.close();
-		 in = new ObjectInputStream (new FileInputStream("data/Movie"));
-		 new MovieRepository((MovieRepository) in.readObject());
-		 in.close();
-		 in = new ObjectInputStream (new FileInputStream("data/Customer"));
-		 new CustomerRepository((CustomerRepository) in.readObject());
-		 in.close();
-		 in = new ObjectInputStream (new FileInputStream("data/Administrator"));
-		 new AdministratorRepository((AdministratorRepository) in.readObject());
-		 in.close();
-		 in = new ObjectInputStream (new FileInputStream("data/Genre"));
-		 new GenreRepository((GenreRepository) in.readObject());
-		 in.close();
-		 in = new ObjectInputStream (new FileInputStream("data/Director"));
-		 new DirectorRepository((DirectorRepository) in.readObject());
-		 in.close();
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/MovieBox"));
+			new MovieBoxRepository((MovieBoxRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/Movie"));
+			new MovieRepository((MovieRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/Customer"));
+			new CustomerRepository((CustomerRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/Administrator"));
+			new AdministratorRepository((AdministratorRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/Genre"));
+			new GenreRepository((GenreRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
+		try {
+			in = new ObjectInputStream (new FileInputStream("data/Director"));
+			new DirectorRepository((DirectorRepository) in.readObject());
+			in.close();
+		} catch(EOFException e) {}
 	}
 	
-	public void write() throws FileNotFoundException, IOException {
+	public void write() throws FileNotFoundException, IOException, ClassNotFoundException {
 		out = new ObjectOutputStream (new FileOutputStream("data/MovieBox",false));
 		out.writeObject(MovieBoxRepository.getInstance());
 		out.close();

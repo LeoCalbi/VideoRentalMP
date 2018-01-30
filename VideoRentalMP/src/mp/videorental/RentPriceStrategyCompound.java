@@ -6,6 +6,7 @@ import mp.videorental.exception.AddToLeafCompositeException;
 
 public class RentPriceStrategyCompound implements RentPriceStrategy {
 	
+	private static final long serialVersionUID = -671852958750388769L;
 	private List<RentPriceStrategy> strategies;
 	
 	public RentPriceStrategyCompound() {

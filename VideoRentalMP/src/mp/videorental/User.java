@@ -3,9 +3,10 @@ import java.time.LocalDate;
 
 public abstract class User extends Person {
 	
+	private static final long serialVersionUID = 1872045297231354470L;
 	private Credentials credentials;
 	
-	public User(String socialSecurityNumber,String name, String surname, LocalDate birthday,Credentials credentials) {
+	public User(String socialSecurityNumber, String name, String surname, LocalDate birthday, Credentials credentials) {
 		super(socialSecurityNumber,name, surname, birthday);
 		this.credentials=credentials;
 	}
@@ -15,13 +16,17 @@ public abstract class User extends Person {
 	}
 	
 	@Override
-	public void add(Administrator admin) {
-		// TODO Auto-generated method stub
+	public boolean equals(Object obj) {
+		if(obj instanceof User) {
+			User user = (User) obj;
+			return user.access(credentials);
+		}
+		return false;
 	}
-
+	
 	@Override
-	public void remove(Administrator admin) {
-		// TODO Auto-generated method stub
-		
+	public int hashCode() {
+		return credentials.hashCode();
 	}
+	
 }
