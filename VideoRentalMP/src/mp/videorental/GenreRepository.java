@@ -3,7 +3,7 @@ package mp.videorental;
 import mp.videorental.exception.RepositoryNotInitializedException;
 
 @SuppressWarnings("serial")
-public class GenreRepository extends Repository<MovieBox> {
+public class GenreRepository extends Repository<Genre> {
 	
 	private static GenreRepository instance = new GenreRepository();
 	
