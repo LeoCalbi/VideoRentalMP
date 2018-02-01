@@ -29,8 +29,8 @@ public class DVDTest {
 
 	@Test(expected = AlreadyRentedException.class)
 	public void testRentAlreadyRented() throws AlreadyRentedException {
-		Rent a = moviebox.rent(10);
-		Rent b = moviebox.rent(11);
+		moviebox.rent(10);
+		moviebox.rent(11);
 	}
 	
 	@Test
@@ -40,7 +40,7 @@ public class DVDTest {
 	
 	@Test
 	public void testIsNotAvailable() throws AlreadyRentedException {
-		Rent a = moviebox.rent(10);
+		moviebox.rent(10);
 		assertFalse(moviebox.isAvailable());
 	}
 	

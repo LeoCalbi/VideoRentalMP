@@ -86,10 +86,10 @@ public class CartTest {
 	@Test
 	public void testGetPrice() throws AlreadyRentedException, MaximumRentedItemsException {
 		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
+		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
-		Double expectedPrice = ((3*10)-3)+((4*13)-(4*13*0.10));
+		Double expectedPrice = (3*10)+((4*13)-(4*13*0.10));
 		assertEquals(expectedPrice, cart.getPrice());
 	}
 

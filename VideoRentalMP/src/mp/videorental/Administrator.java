@@ -25,4 +25,6 @@ public final class Administrator extends User {
 		AdministratorRepository.getInstance().remove(this, admin);
 	}
 	
+	
+	
 }

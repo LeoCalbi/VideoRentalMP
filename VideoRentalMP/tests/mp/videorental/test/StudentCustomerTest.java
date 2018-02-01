@@ -5,11 +5,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import mp.videorental.*;
-import mp.videorental.exception.AbsentRentException;
-import mp.videorental.exception.AlreadyRentedException;
-import mp.videorental.exception.EmptyRentListException;
-import mp.videorental.exception.InsufficientFundsException;
-import mp.videorental.exception.NotRentedException;
+import mp.videorental.exception.*;
 
 public class StudentCustomerTest {
 

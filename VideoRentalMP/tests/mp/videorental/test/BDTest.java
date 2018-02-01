@@ -3,10 +3,8 @@ package mp.videorental.test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import mp.videorental.*;
 import mp.videorental.exception.*;
 
@@ -33,8 +31,8 @@ public class BDTest {
 
 	@Test(expected = AlreadyRentedException.class)
 	public void testRentAlreadyRented() throws AlreadyRentedException {
-		Rent a = moviebox.rent(10);
-		Rent b = moviebox.rent(11);
+		moviebox.rent(10);
+		moviebox.rent(11);
 	}
 	
 	@Test
@@ -44,7 +42,7 @@ public class BDTest {
 	
 	@Test
 	public void testIsNotAvailable() throws AlreadyRentedException {
-		Rent a = moviebox.rent(10);
+		moviebox.rent(10);
 		assertFalse(moviebox.isAvailable());
 	}
 	

@@ -3,13 +3,9 @@ package mp.videorental.test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-
-import org.junit.Before;
 import org.junit.Test;
 import mp.videorental.*;
-import mp.videorental.exception.AddToLeafCompositeException;
-import mp.videorental.exception.AlreadyRentedException;
-import mp.videorental.exception.NotRentedException;
+import mp.videorental.exception.*;
 
 public class ComplexRentTest {
 	Rent rent;

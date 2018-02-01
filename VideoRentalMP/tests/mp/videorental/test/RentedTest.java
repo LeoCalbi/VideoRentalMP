@@ -3,17 +3,11 @@ package mp.videorental.test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-
 import java.util.Iterator;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import mp.videorental.*;
-import mp.videorental.exception.AbsentRentException;
-import mp.videorental.exception.AlreadyRentedException;
-import mp.videorental.exception.EmptyRentListException;
-import mp.videorental.exception.NotRentedException;
+import mp.videorental.exception.*;
 
 public class RentedTest {
 	Rented rented;

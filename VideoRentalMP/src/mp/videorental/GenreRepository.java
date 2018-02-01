@@ -6,17 +6,25 @@ import java.io.IOException;
 public class GenreRepository extends Repository<Genre> {
 	
 	private static final long serialVersionUID = 6271621469646463436L;
-	private static GenreRepository instance = new GenreRepository();
+	private static GenreRepository instance;
 	
-	private GenreRepository() {}
-	
-	public GenreRepository(GenreRepository instance) {
-		GenreRepository.instance=instance;
+	private GenreRepository() {
+		super();
 	}
 	
 	public static GenreRepository getInstance() throws FileNotFoundException, ClassNotFoundException, IOException {
-		 if(instance == null) StorableHandler.getInstance().read();
-		 return instance;
+		if(instance == null) {
+			GenreRepository repo = StorableHandler.getInstance().readGenre();
+			if(repo == null) instance = new GenreRepository();
+			else instance = repo;
+		}
+		return instance;
 	}
+
+	@Override
+	public void write() throws FileNotFoundException, ClassNotFoundException, IOException {
+		StorableHandler.getInstance().writeGenre();
+	}
+
 
 }

@@ -3,19 +3,9 @@ package mp.videorental.test;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-
 import org.junit.Test;
-
-import mp.videorental.BD;
-import mp.videorental.DVD;
-import mp.videorental.Director;
-import mp.videorental.Genre;
-import mp.videorental.Movie;
-import mp.videorental.MovieBox;
-import mp.videorental.Over10DaysDiscount;
-import mp.videorental.Rent;
-import mp.videorental.exception.AlreadyRentedException;
-import mp.videorental.exception.NotRentedException;
+import mp.videorental.*;
+import mp.videorental.exception.*;
 
 public class SimpleRentTest {
 	private Rent rent;

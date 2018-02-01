@@ -3,9 +3,6 @@ package mp.videorental.test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import mp.videorental.NewReleaseSurcharge;
-import mp.videorental.Over10DaysDiscount;
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   SeniorCustomerTest.class,
@@ -24,7 +21,12 @@ import mp.videorental.Over10DaysDiscount;
   RentedTest.class,
   ComplexRentTest.class,
   SimpleRentTest.class,
-  AdministratorRepositoryTest.class
+  AdministratorRepositoryTest.class,
+  CustomerRepositoryTest.class,
+  DirectorRepositoryTest.class,
+  GenreRepositoryTest.class,
+  MovieBoxRepositoryTest.class,
+  MovieRepositoryTest.class
 })
 
 public class TestSuite {}
