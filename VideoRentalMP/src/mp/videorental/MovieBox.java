@@ -1,7 +1,5 @@
 package mp.videorental;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import mp.videorental.exception.AlreadyRentedException;
 import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.NotRentedException;
@@ -23,6 +21,11 @@ public abstract class MovieBox implements Rentable, Storable {
 		this.serialNumber = lastSerialNumber++;
 		this.isAvailable = true;
 	}
+	
+	@Override
+	public Integer getSerialNumber() {
+		return serialNumber;
+	}
 
 	public boolean isAvailable() {
 		return isAvailable;
@@ -37,7 +40,7 @@ public abstract class MovieBox implements Rentable, Storable {
 	public Rent rent(Integer days,RentPriceStrategy strategy) throws AlreadyRentedException {
 		if (isAvailable) {
 			isAvailable = false;
-			return new ComplexRent(this,days,strategy);
+			return new ComplexRent(this, days, strategy);
 		} else throw new AlreadyRentedException();
 	}
 	
@@ -45,7 +48,7 @@ public abstract class MovieBox implements Rentable, Storable {
 	public Rent rent(Integer days) throws AlreadyRentedException {
 		if (isAvailable) {
 			isAvailable = false;
-			return new SimpleRent(this,days);
+			return new SimpleRent(this, days);
 		} else throw new AlreadyRentedException();
 	}
 
@@ -72,14 +75,23 @@ public abstract class MovieBox implements Rentable, Storable {
 		return false;
 	}
 	
+	public boolean compareMovie(Movie m) {
+		return movie.equals(m);
+	}
+	
 	@Override
-	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException {
 		MovieBoxRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		MovieBoxRepository.getInstance().remove(this, admin);
+	}
+	
+	@Override
+	public String toString() {
+		return getClass().getSimpleName() + " -> Serial Number: " + serialNumber + ", Movie Title: " + movie.getTitle() + ", Daily Price: " + getDailyPrice() + "\n";
 	}
 	
 }

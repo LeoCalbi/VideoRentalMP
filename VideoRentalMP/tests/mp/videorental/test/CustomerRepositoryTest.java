@@ -1,11 +1,7 @@
 package mp.videorental.test;
 
 import static org.junit.Assert.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,47 +17,48 @@ public class CustomerRepositoryTest {
 	private static CustomerRepository repo;
 	
 	@BeforeClass
-	public static void init() throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static void init() {
 		repo = CustomerRepository.getInstance();
 	}
 	
 	@Test
-	public void testCustomerRepositoryAdd() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryAdd() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException {
 		customer1.add(defaultAdmin);
 		assertTrue(repo.contains(customer1));
 		customer1.remove(defaultAdmin);
 	}
 	
 	@Test(expected = InvalidAdminException.class)
-	public void testCustomerRepositoryAddInvalidAdmin() throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryAddInvalidAdmin() throws InvalidAdminException, StorableAlreadyPresentException {
 		customer1.add(admin);
 	}
 	
 	@Test(expected = StorableAlreadyPresentException.class)
-	public void testCustomerRepositoryAddStorableAlreadyPresent() throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryAddStorableAlreadyPresent() throws InvalidAdminException, StorableAlreadyPresentException {
 		customer2.add(defaultAdmin);
 		customer2.add(defaultAdmin);
 	}
 	
 	@Test
-	public void testCustomerRepositoryRemove() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryRemove() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException {
 		customer1.add(defaultAdmin);
 		customer1.remove(defaultAdmin);
 		assertFalse(repo.contains(customer1));
 	}
 	
 	@Test(expected = InvalidAdminException.class)
-	public void testCustomerRepositoryRemoveInvalidAdmin() throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryRemoveInvalidAdmin() throws InvalidAdminException, StorableNotPresentException {
 		customer1.remove(admin);
 	}
 	
 	@Test(expected = StorableNotPresentException.class)
-	public void testCustomerRepositoryRemoveStorableNotPresent() throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testCustomerRepositoryRemoveStorableNotPresent() throws InvalidAdminException, StorableNotPresentException {
 		customer1.remove(defaultAdmin);
 	}
 	
 	@AfterClass
-	public static void clear() throws FileNotFoundException, ClassNotFoundException, IOException{
-		repo.removeIf((Customer o)->o.equals(customer1) || o.equals(customer2));
+	public static void clear() {
+		repo.removeIf((Customer o) -> o.equals(customer1) || o.equals(customer2));
 	}
+	
 }

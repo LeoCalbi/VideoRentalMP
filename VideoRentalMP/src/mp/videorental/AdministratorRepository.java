@@ -1,12 +1,11 @@
 package mp.videorental;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.function.Predicate;
 
 import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.NotRemovableAdminException;
+import mp.videorental.exception.StorableAlreadyPresentException;
 import mp.videorental.exception.StorableNotPresentException;
 
 public class AdministratorRepository extends Repository<Administrator> {
@@ -19,36 +18,35 @@ public class AdministratorRepository extends Repository<Administrator> {
 		super();
 	}
 	
-	public static AdministratorRepository getInstance() throws FileNotFoundException, ClassNotFoundException, IOException {
-		 if(instance == null) {
-			 AdministratorRepository repo = StorableHandler.getInstance().readAdministrator();
-			 if(repo== null) {
-				 instance = new AdministratorRepository();
-				 instance.add(defaultAdmin,defaultAdmin);
-			 } else instance = repo;
-		 }
-		 return instance;
+	public static AdministratorRepository getInstance() {
+		if(instance == null) {
+			AdministratorRepository repo = StorableHandler.getInstance().readAdministrator();
+			if(repo == null) {
+				instance = new AdministratorRepository();
+				try {
+					instance.add(defaultAdmin,defaultAdmin);
+				} catch (InvalidAdminException | StorableAlreadyPresentException e) {}
+			} else instance = repo;
+		}
+		return instance;
 	}
 	
 	@Override
-	public void remove(Administrator item, Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void remove(Administrator item, Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		if(item.equals(defaultAdmin)) throw new NotRemovableAdminException();
 		super.remove(item, admin);
 	}
 
 	@Override
-	public void write() throws FileNotFoundException, ClassNotFoundException, IOException {
+	public void write() {
 		StorableHandler.getInstance().writeAdministrator();
 	}
 
 	@Override
-	public void removeIf(Predicate<? super Administrator> filter) throws FileNotFoundException, ClassNotFoundException, IOException {
-		Predicate<Administrator> defaultFilter = (Administrator a)->!a.equals(defaultAdmin);
+	public void removeIf(Predicate<? super Administrator> filter) {
+		Predicate<Administrator> defaultFilter = (Administrator a) -> !a.equals(defaultAdmin);
 		defaultFilter.and(filter);
 		super.removeIf(defaultFilter);
 	}
-
-	
-
 	
 }

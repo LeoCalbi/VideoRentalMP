@@ -29,7 +29,7 @@ public class StudentCardTest {
 	}
 	
 	@Test
-	public void testDeposit() {
+	public void testDeposit() throws NegativeAmountException {
 		Double amount = 10.0;
 		Double originalAmount = card.getBalance();
 		card.deposit(amount);
@@ -37,8 +37,14 @@ public class StudentCardTest {
 		assertEquals(card.getBalance(), finalAmount);
 	}
 	
+	@Test(expected = NegativeAmountException.class)
+	public void testDepositNegativeAmount() throws NegativeAmountException {
+		Double amount = -10.0;
+		card.deposit(amount);
+	}
+	
 	@Test
-	public void testWithdraw() throws InsufficientFundsException {
+	public void testWithdraw() throws InsufficientFundsException, NegativeAmountException {
 		Double amount = 10.0;
 		Double originalAmount = card.getBalance();
 		card.deposit(amount);

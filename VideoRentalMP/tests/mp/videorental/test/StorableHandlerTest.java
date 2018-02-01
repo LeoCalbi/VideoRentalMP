@@ -12,14 +12,6 @@ public class StorableHandlerTest {
 	
 	private StorableHandler storableHandler = StorableHandler.getInstance();
 	
-	@Test
-	public void testRead() throws FileNotFoundException, IOException, ClassNotFoundException {
-		storableHandler.read();
-	}
-	
-	@Test
-	public void testWrite() throws FileNotFoundException, IOException, ClassNotFoundException {
-		storableHandler.write();
-	}
+	// TODO
 
 }

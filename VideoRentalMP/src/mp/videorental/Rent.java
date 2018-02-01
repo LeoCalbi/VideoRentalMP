@@ -25,8 +25,12 @@ public abstract class Rent implements Serializable {
 		return rentDate;
 	}
 	
+	public Integer getRentableSerialNumber() {
+		return item.getSerialNumber();
+	}
+	
 	public Double getPrice() {
-			return item.getDailyPrice() * days;
+		return item.getDailyPrice() * days;
 	}
 	
 	public void restitution() throws NotRentedException {
@@ -44,6 +48,11 @@ public abstract class Rent implements Serializable {
 			return compareRentable(other.item) && rentDate.equals(other.rentDate) && days.equals(other.days);
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return "Rentable: [" + item.toString() + "], Price: " + getPrice() + ", Days: " + days + "\n";
 	}
 	
 }

@@ -12,10 +12,12 @@ import mp.videorental.*;
 import mp.videorental.exception.*;
 
 public class CartTest {
+	
 	Cart cart;
 	Customer customer;
+	
 	@Before
-	public void initFixture(){
+	public void initFixture() throws NegativeAmountException{
 		customer = new StandardCustomer("123","Alessio", "Falai", LocalDate.of(1997, 10, 12), "Via caduti sul lavoro", "3347703001",new Credentials("falaiAlessio", "test"));
 		customer.depositOnCard(100.0);
 		cart = new Cart(customer);

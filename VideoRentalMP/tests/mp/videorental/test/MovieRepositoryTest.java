@@ -1,11 +1,7 @@
 package mp.videorental.test;
 
 import static org.junit.Assert.*;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.LocalDate;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,47 +17,48 @@ public class MovieRepositoryTest {
 	private static MovieRepository repo;
 	
 	@BeforeClass
-	public static void init() throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static void init() {
 		repo = MovieRepository.getInstance();
 	}
 	
 	@Test
-	public void testMovieRepositoryAdd() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryAdd() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException {
 		movie1.add(defaultAdmin);
 		assertTrue(repo.contains(movie1));
 		movie1.remove(defaultAdmin);
 	}
 	
 	@Test(expected = InvalidAdminException.class)
-	public void testMovieRepositoryAddInvalidAdmin() throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryAddInvalidAdmin() throws InvalidAdminException, StorableAlreadyPresentException {
 		movie1.add(admin);
 	}
 	
 	@Test(expected = StorableAlreadyPresentException.class)
-	public void testMovieRepositoryAddStorableAlreadyPresent() throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryAddStorableAlreadyPresent() throws InvalidAdminException, StorableAlreadyPresentException {
 		movie2.add(defaultAdmin);
 		movie2.add(defaultAdmin);
 	}
 	
 	@Test
-	public void testMovieRepositoryRemove() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryRemove() throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException {
 		movie1.add(defaultAdmin);
 		movie1.remove(defaultAdmin);
 		assertFalse(repo.contains(movie1));
 	}
 	
 	@Test(expected = InvalidAdminException.class)
-	public void testMovieRepositoryRemoveInvalidAdmin() throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryRemoveInvalidAdmin() throws InvalidAdminException, StorableNotPresentException {
 		movie1.remove(admin);
 	}
 	
 	@Test(expected = StorableNotPresentException.class)
-	public void testMovieRepositoryRemoveStorableNotPresent() throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, ClassNotFoundException, IOException {
+	public void testMovieRepositoryRemoveStorableNotPresent() throws InvalidAdminException, StorableNotPresentException {
 		movie1.remove(defaultAdmin);
 	}
 	
 	@AfterClass
-	public static void clear() throws FileNotFoundException, ClassNotFoundException, IOException{
-		repo.removeIf((Movie o)->o.equals(movie1) || o.equals(movie2));
+	public static void clear() {
+		repo.removeIf((Movie o) -> o.equals(movie1) || o.equals(movie2));
 	}
+	
 }

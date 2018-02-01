@@ -15,6 +15,10 @@ public abstract class Person implements Storable {
 		this.surname = surname;
 		this.birthday = birthday;
 	}
+	
+	public String getSocialSecurityNumber() {
+		return socialSecurityNumber;
+	}
 
 	public String getName() {
 		return name;

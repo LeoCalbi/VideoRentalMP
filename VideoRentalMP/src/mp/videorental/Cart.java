@@ -52,4 +52,13 @@ public class Cart {
 		}
 	}
 	
+	public Integer getCartSize() {
+		return toRent.size();
+	}
+	
+	@Override
+	public String toString() {
+		return toRent.toString();
+	}
+	
 }

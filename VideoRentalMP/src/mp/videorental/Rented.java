@@ -57,4 +57,9 @@ public class Rented implements Serializable {
 		return rented.size();
 	}
 	
+	@Override
+	public String toString() {
+		return rented.toString();
+	}
+	
 }

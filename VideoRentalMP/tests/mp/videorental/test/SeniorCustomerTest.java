@@ -41,7 +41,7 @@ public class SeniorCustomerTest {
 	}
 	
 	@Test
-	public void testDepositOnCard() {
+	public void testDepositOnCard() throws NegativeAmountException {
 		Double originalAmount = customer.getCardBalance();
 		Double addedAmount = 10.0;
 		customer.depositOnCard(addedAmount);
@@ -49,8 +49,14 @@ public class SeniorCustomerTest {
 		assertEquals(finalAmount, customer.getCardBalance());
 	}
 	
+	@Test(expected = NegativeAmountException.class)
+	public void testDepositOnCardNegativeAmount() throws NegativeAmountException {
+		Double amount = -10.0;
+		customer.depositOnCard(amount);
+	}
+	
 	@Test
-	public void testWithdrawFromCard() throws InsufficientFundsException {
+	public void testWithdrawFromCard() throws InsufficientFundsException, NegativeAmountException {
 		Double originalAmount = customer.getCardBalance();
 		Double amount = 10.0;
 		customer.depositOnCard(amount);

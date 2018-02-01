@@ -1,8 +1,6 @@
 package mp.videorental;
 
-import java.io.EOFException;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +9,6 @@ import java.io.ObjectOutputStream;
 public class StorableHandler {
 	
 	private static StorableHandler instance;
-	private ObjectOutputStream out;
 	
 	private StorableHandler() {}
 
@@ -19,113 +16,101 @@ public class StorableHandler {
 		if(instance == null) instance = new StorableHandler();
 		return instance;
 	}
-	
-	public void read() throws FileNotFoundException, IOException, ClassNotFoundException {
-		readMovieBox();
-		readMovie();
-		readCustomer();
-		readAdministrator();
-		readGenre();
-		readDirector();
-	}
 
-	public DirectorRepository readDirector() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public DirectorRepository readDirector() {
 		DirectorRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/Director"))){
 			repo = (DirectorRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) {repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
 
-	public GenreRepository readGenre() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public GenreRepository readGenre() {
 		GenreRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/Genre"))){
 			repo = (GenreRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) {repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
 
-	public AdministratorRepository readAdministrator() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public AdministratorRepository readAdministrator() {
 		AdministratorRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/Administrator"))){
 			repo = (AdministratorRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) {repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
 
-	public CustomerRepository readCustomer() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public CustomerRepository readCustomer() {
 		CustomerRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/Customer"))){
 			repo = (CustomerRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) { repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
 
-	public MovieRepository readMovie() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public MovieRepository readMovie() {
 		MovieRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/Movie"))){
 			repo = (MovieRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) { repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
 
-	public MovieBoxRepository readMovieBox() throws IOException, FileNotFoundException, ClassNotFoundException {
+	public MovieBoxRepository readMovieBox() {
 		MovieBoxRepository repo;
 		try (ObjectInputStream in = new ObjectInputStream (new FileInputStream("data/MovieBox"))){
 			repo = (MovieBoxRepository) in.readObject();
-			System.out.println(repo.toString());
-		} catch(EOFException e) { repo = null;}
+		} catch(IOException | ClassNotFoundException e) { repo = null; }
 		return repo;
 	}
-	
-	public void write() throws FileNotFoundException, IOException, ClassNotFoundException {
-		writeMovieBox();
-		writeMovie();
-		writeCustomer();
-		writeAdministrator();
-		writeGenre();
-		writeDirector();
+
+	public void writeDirector() {
+		try(ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/Director", false))) {
+			out.writeObject(DirectorRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 
-	public void writeDirector() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/Director",false));
-		out.writeObject(DirectorRepository.getInstance());
-		out.close();
+	public void writeGenre() {
+		try (ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/Genre", false))) {
+			out.writeObject(GenreRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 
-	public void writeGenre() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/Genre",false));
-		out.writeObject(GenreRepository.getInstance());
-		out.close();
+	public void writeAdministrator() {
+		try (ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/Administrator", false))) {
+			out.writeObject(AdministratorRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 
-	public void writeAdministrator() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/Administrator",false));
-		out.writeObject(AdministratorRepository.getInstance());
-		out.close();
+	public void writeCustomer() {
+		try (ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/Customer", false))) {
+			out.writeObject(CustomerRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 
-	public void writeCustomer() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/Customer",false));
-		out.writeObject(CustomerRepository.getInstance());
-		out.close();
+	public void writeMovie() {
+		try (ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/Movie", false))) {
+			out.writeObject(MovieRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 
-	public void writeMovie() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/Movie",false));
-		out.writeObject(MovieRepository.getInstance());
-		out.close();
-	}
-
-	public void writeMovieBox() throws IOException, FileNotFoundException, ClassNotFoundException {
-		out = new ObjectOutputStream (new FileOutputStream("data/MovieBox",false));
-		out.writeObject(MovieBoxRepository.getInstance());
-		out.close();
+	public void writeMovieBox() {
+		try (ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream("data/MovieBox", false))) {
+			out.writeObject(MovieBoxRepository.getInstance());
+			out.flush();
+			out.close();
+		} catch (IOException e) {}
 	}
 	
 }

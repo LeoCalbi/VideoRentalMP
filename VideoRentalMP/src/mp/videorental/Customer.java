@@ -1,12 +1,11 @@
 package mp.videorental;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 import mp.videorental.exception.AbsentRentException;
 import mp.videorental.exception.EmptyRentListException;
 import mp.videorental.exception.InsufficientFundsException;
 import mp.videorental.exception.InvalidAdminException;
+import mp.videorental.exception.NegativeAmountException;
 import mp.videorental.exception.NotRentedException;
 import mp.videorental.exception.StorableAlreadyPresentException;
 import mp.videorental.exception.StorableNotPresentException;
@@ -62,7 +61,7 @@ public abstract class Customer extends User {
 		return card.getBalance();
 	}
 	
-	public void depositOnCard(Double amount) {
+	public void depositOnCard(Double amount) throws NegativeAmountException {
 		setCard();
 		card.deposit(amount);
 	}
@@ -91,17 +90,21 @@ public abstract class Customer extends User {
 		rented.add(r);
 	}
 	
+	public String getRentedDescription() {
+		return rented.toString();
+	}
+	
 	public void restitution(Rentable r) throws AbsentRentException, EmptyRentListException, NotRentedException {
 		if(rented.restitution(r)) card.removePoints();
 	}
 	
 	@Override
-	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException {
 		CustomerRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		CustomerRepository.getInstance().remove(this, admin);
 	}
 	

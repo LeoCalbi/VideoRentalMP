@@ -1,8 +1,6 @@
 package mp.videorental;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.StorableAlreadyPresentException;
 import mp.videorental.exception.StorableNotPresentException;
@@ -10,7 +8,8 @@ import mp.videorental.exception.StorableNotPresentException;
 public class Movie implements Storable {
 
 	private static final long serialVersionUID = 4415245065621432304L;
-	//TODO controllare get di classi Director e Genre
+	private static Integer lastSerialNumber = 0;
+	private Integer serialNumber = lastSerialNumber++;
 	private String title;
 	private Director director;
 	private Genre genre;
@@ -21,6 +20,10 @@ public class Movie implements Storable {
 		this.director = director;
 		this.genre = genre;
 		this.releaseDate = releaseDate;
+	}
+	
+	public Integer getSerialNumber() {
+		return serialNumber;
 	}
 	
 	public LocalDate getReleaseDate() {
@@ -60,13 +63,18 @@ public class Movie implements Storable {
 	}
 
 	@Override
-	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException {
 		MovieRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		MovieRepository.getInstance().remove(this, admin);
+	}
+	
+	@Override
+	public String toString() {
+		return "Serial Number: " + serialNumber + ", Title: " + title + ", Director: [" + director.toString() + "], Genre: " + genre.toString() + ", Release Date: " + releaseDate.toString() + "\n";
 	}
 	
 }

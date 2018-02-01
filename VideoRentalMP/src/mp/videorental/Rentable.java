@@ -9,5 +9,6 @@ public interface Rentable {
 	public Rent rent(Integer days,RentPriceStrategy strategy) throws AlreadyRentedException;
 	public void restitution() throws NotRentedException;
 	public Double getDailyPrice();
+	public Integer getSerialNumber();
 	
 }

@@ -1,8 +1,6 @@
 package mp.videorental;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.time.LocalDate;
 
+import java.time.LocalDate;
 import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.StorableAlreadyPresentException;
 import mp.videorental.exception.StorableNotPresentException;
@@ -26,12 +24,12 @@ public class Director extends Person {
 	}
 	
 	@Override
-	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void add(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException {
 		DirectorRepository.getInstance().add(this, admin);
 	}
 
 	@Override
-	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException, FileNotFoundException, IOException, ClassNotFoundException {
+	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		DirectorRepository.getInstance().remove(this, admin);
 	}
 	

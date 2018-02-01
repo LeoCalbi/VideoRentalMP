@@ -1,6 +1,7 @@
 package mp.videorental;
 
 import mp.videorental.exception.InsufficientFundsException;
+import mp.videorental.exception.NegativeAmountException;
 
 public abstract class CustomerCard implements Card {
 	
@@ -24,7 +25,8 @@ public abstract class CustomerCard implements Card {
 		return points;
 	}
 
-	public void deposit(Double amount) {
+	public void deposit(Double amount) throws NegativeAmountException {
+		if(amount < 0) throw new NegativeAmountException();
 		balance += amount;
 	}
 	

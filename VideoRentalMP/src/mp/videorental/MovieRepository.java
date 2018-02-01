@@ -1,8 +1,5 @@
 package mp.videorental;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 public class MovieRepository extends Repository<Movie> {
 	
 	private static final long serialVersionUID = -2384158971984703576L;
@@ -12,7 +9,7 @@ public class MovieRepository extends Repository<Movie> {
 		super();
 	}
 	
-	public static MovieRepository getInstance() throws FileNotFoundException, ClassNotFoundException, IOException {
+	public static MovieRepository getInstance() {
 		if(instance == null) {
 			MovieRepository repo = StorableHandler.getInstance().readMovie();
 			if(repo == null) instance = new MovieRepository();
@@ -22,7 +19,7 @@ public class MovieRepository extends Repository<Movie> {
 	}
 
 	@Override
-	public void write() throws FileNotFoundException, ClassNotFoundException, IOException {
+	public void write() {
 		StorableHandler.getInstance().writeMovie();
 	}
 
