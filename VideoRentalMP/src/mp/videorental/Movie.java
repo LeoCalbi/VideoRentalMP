@@ -29,17 +29,9 @@ public class Movie implements Storable {
 	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
-
+	
 	public String getTitle() {
 		return title;
-	}
-
-	public Director getDirector() {
-		return director;
-	}
-
-	public Genre getGenre() {
-		return genre;
 	}
 	
 	@Override

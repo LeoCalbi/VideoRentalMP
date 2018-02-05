@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.stream.Stream;
-
 import mp.videorental.*;
 import mp.videorental.exception.*;
 import java.time.temporal.ChronoUnit;
@@ -44,17 +42,19 @@ public class Main {
 	private static void customerSide() {
 		Credentials customerCredentials = askCredentials();
 		int customerChoice = 5;
-		do {
-			try {
-				Customer customer = customerRepository.stream().filter((Customer c) -> c.access(customerCredentials)).findFirst().get();
-				Cart cart = new Cart(customer);
+		try {
+			Customer customer = customerRepository.stream().filter((Customer c) -> c.access(customerCredentials)).findFirst().get();
+			Cart cart = new Cart(customer);
+			do {
+				
 				System.out.println("1) Rent\n2) Restitution\n3) Cart\n4) Card\n5) Exit\n");
 				customerChoice = in.nextInt();
 				switch(customerChoice) {
 					case 1:
-						if(movieRepository.getSize()>0){
+						if(movieRepository.getSize() > 0) {
 							Rent rent = newRent();
-							cart.add(rent);
+							System.out.println(rent.toString());
+							if(rent != null) cart.add(rent);
 						} else System.out.println("No movie available");
 						break;
 					case 2:
@@ -72,26 +72,26 @@ public class Main {
 						System.out.println("Insertion error.");
 						break;
 				}
-			} catch(NoSuchElementException e) {
-				System.out.println("Wrong input. Try again.");
-			} catch (AddToLeafCompositeException e) {
-				System.out.println(e.getMessage());
-			} catch (AlreadyRentedException e) {
-				System.out.println("The movie box is not available.");
-			} catch(MaximumRentedItemsException e) {
-				System.out.println("You reached the maximum number of rented items.");
-			} catch(NotRentedException e) {
-				System.out.println("The movie box is not rented. You can't return it.");
-			}  catch(AbsentRentException e) {
-				System.out.println("Wrong serial number. Try again.");
-			} catch (EmptyRentListException e) {
-				System.out.println("The rented list is empty.");
-			} catch (InsufficientFundsException e) {
-				System.out.println("Not enough credit. Please deposit on your card.");
-			}  catch(NegativeAmountException e) {
-				System.out.println("The amount you inserted is a negative number. Try again.");
-			}
-		} while(customerChoice != 5);
+			} while(customerChoice != 5);
+		} catch(NoSuchElementException e) {
+			System.out.println("Wrong input. Try again.");
+		} catch (AddToLeafCompositeException e) {
+			System.out.println(e.getMessage());
+		} catch (AlreadyRentedException e) {
+			System.out.println("The movie box is not available.");
+		} catch(MaximumRentedItemsException e) {
+			System.out.println("You reached the maximum number of rented items.");
+		} catch(NotRentedException e) {
+			System.out.println("The movie box is not rented. You can't return it.");
+		}  catch(AbsentRentException e) {
+			System.out.println("Wrong serial number. Try again.");
+		} catch (EmptyRentListException e) {
+			System.out.println("The rented list is empty.");
+		} catch (InsufficientFundsException e) {
+			System.out.println("Not enough credit. Please deposit on your card.");
+		}  catch(NegativeAmountException e) {
+			System.out.println("The amount you inserted is a negative number. Try again.");
+		}
 	}
 	
 	private static void adminSide() {
@@ -204,9 +204,11 @@ public class Main {
 		System.out.println("Insert the serial number of the movie: ");
 		int movieSerialNumber = in.nextInt();
 		Movie movie = movieRepository.stream().filter((Movie m) -> m.getSerialNumber().equals(movieSerialNumber)).findFirst().get();
-		Stream<MovieBox> availableMovieBoxes = movieBoxRepository.stream().filter((MovieBox m) -> m.compareMovie(movie) && m.isAvailable());
-		if(availableMovieBoxes.count() > 0) {
-			availableMovieBoxes.forEach(MovieBox::toString);
+		long countAvailableMovieBoxes = movieBoxRepository.stream().filter((MovieBox m) -> m.compareMovie(movie) && m.isAvailable()).count();
+		System.out.println(countAvailableMovieBoxes);
+		if(countAvailableMovieBoxes > 0) {
+			Iterator<MovieBox> it = movieBoxRepository.stream().filter((MovieBox m) -> m.compareMovie(movie) && m.isAvailable()).iterator();
+			while(it.hasNext()) System.out.println(it.next().toString());
 			System.out.println("Insert the serial number of the movie box: ");
 			int movieBoxSerialNumber = in.nextInt();
 			MovieBox movieBox = movieBoxRepository.stream().filter((MovieBox m) -> m.getSerialNumber().equals(movieBoxSerialNumber)).findFirst().get();
@@ -218,8 +220,8 @@ public class Main {
 			return movieBox.rent(days, strategy);
 		} else { 
 			System.out.println("No movie boxes available for the selected movie.");
-			}
-		
+		}
+		return null;
 	}
 
 	private static void movieBoxManager(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException, StorableNotPresentException {
@@ -231,8 +233,10 @@ public class Main {
 			MovieBox tempMovieBox;
 			switch(adminChoice) {
 				case 1:
-					tempMovieBox = newMovieBox();
-					tempMovieBox.add(admin);
+					if(movieRepository.getSize() > 0) {
+						tempMovieBox = newMovieBox();
+						tempMovieBox.add(admin);
+					} else System.out.println("No movie available.");
 					break;
 				case 2:
 					System.out.println("Insert the serial number of the movie box you want to remove:");
@@ -352,14 +356,16 @@ public class Main {
 
 	private static Movie newMovie(Administrator admin) throws InvalidAdminException, StorableAlreadyPresentException {
 		Director director;
+		in.nextLine();
 		System.out.println("Title: ");
-		String title = in.next();
+		String title = in.nextLine();
 		System.out.println("Director name: ");
 		String directorName = in.next();
 		System.out.println("Director surname: ");
 		String directorSurname = in.next();
+		in.nextLine();
 		System.out.println("Genre description: ");
-		Genre genre = new Genre(in.next());
+		Genre genre = new Genre(in.nextLine());
 		System.out.println("Release Date (yyyy-mm-dd): ");
 		LocalDate releaseDate = LocalDate.parse(in.next());
 		try {
@@ -395,8 +401,9 @@ public class Main {
 		String surname = in.next();
 		System.out.println("Birthday (yyyy-mm-dd): ");
 		LocalDate birthday = LocalDate.parse(in.next());
+		in.nextLine();
 		System.out.println("Address: ");
-		String address = in.next();
+		String address = in.nextLine();
 		System.out.println("Telephone: ");
 		String telephone = in.next();
 		int age = LocalDate.now().getYear() - birthday.getYear();

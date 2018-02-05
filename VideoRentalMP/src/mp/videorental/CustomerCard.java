@@ -17,6 +17,10 @@ public abstract class CustomerCard implements Card {
 		serialNumber = lastSerialNumber++;
 	}
 	
+	public Integer getSerialNumber() {
+		return serialNumber;
+	}
+	
 	public Double getBalance() {
 		return balance;
 	}

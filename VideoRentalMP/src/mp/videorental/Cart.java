@@ -24,7 +24,7 @@ public class Cart {
 	
 	public void add(Rent r) throws MaximumRentedItemsException, AlreadyRentedException {
 		if(Rented.MAX_RENTED - customer.getRentedSize() - toRent.size() > 0) {
-			if(!toRent.contains(r))toRent.add(r);
+			if(!toRent.contains(r)) toRent.add(r);
 			else throw new AlreadyRentedException();
 		}
 		else throw new MaximumRentedItemsException();

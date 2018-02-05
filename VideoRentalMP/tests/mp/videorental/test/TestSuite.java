@@ -3,8 +3,6 @@ package mp.videorental.test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import mp.videorental.StorableHandler;
-
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   SeniorCustomerTest.class,
@@ -28,8 +26,7 @@ import mp.videorental.StorableHandler;
   DirectorRepositoryTest.class,
   GenreRepositoryTest.class,
   MovieBoxRepositoryTest.class,
-  MovieRepositoryTest.class,
-  //StorableHandlerTest.class
+  MovieRepositoryTest.class
 })
 
 public class TestSuite {}

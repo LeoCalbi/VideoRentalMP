@@ -44,4 +44,9 @@ public class Genre implements Storable {
 		GenreRepository.getInstance().remove(this, admin);
 	}
 	
+	@Override
+	public String toString() {
+		return getDescription();
+	}
+	
 }

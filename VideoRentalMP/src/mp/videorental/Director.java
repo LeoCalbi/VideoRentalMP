@@ -1,6 +1,5 @@
 package mp.videorental;
 
-import java.time.LocalDate;
 import mp.videorental.exception.InvalidAdminException;
 import mp.videorental.exception.StorableAlreadyPresentException;
 import mp.videorental.exception.StorableNotPresentException;
