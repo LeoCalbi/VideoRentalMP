@@ -23,5 +23,4 @@ public class DirectorRepository extends Repository<Director> {
 		StorableHandler.getInstance().writeDirector();
 	}
 
-
 }

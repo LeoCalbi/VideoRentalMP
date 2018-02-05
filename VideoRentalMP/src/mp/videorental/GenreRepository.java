@@ -23,5 +23,4 @@ public class GenreRepository extends Repository<Genre> {
 		StorableHandler.getInstance().writeGenre();
 	}
 
-
 }

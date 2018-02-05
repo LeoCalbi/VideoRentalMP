@@ -23,5 +23,4 @@ public class MovieRepository extends Repository<Movie> {
 		StorableHandler.getInstance().writeMovie();
 	}
 
-
 }

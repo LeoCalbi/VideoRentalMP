@@ -56,5 +56,4 @@ public class Director implements Storable {
 		return "Director: Name = " + name + ", Surname = " + surname;
 	}
 	
-	
 }
