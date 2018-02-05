@@ -18,14 +18,14 @@ public class CartTest {
 	
 	@Before
 	public void initFixture() throws NegativeAmountException{
-		customer = new StandardCustomer("123","Alessio", "Falai", LocalDate.of(1997, 10, 12), "Via caduti sul lavoro", "3347703001",new Credentials("falaiAlessio", "test"));
+		customer = new StandardCustomer("000","Test", "Test", LocalDate.of(1990, 01, 01), "TestAddress", "0000000000",new Credentials("test", "test"));
 		customer.depositOnCard(100.0);
 		cart = new Cart(customer);
 	}
 
 	@Test
 	public void testAdd() throws AlreadyRentedException, MaximumRentedItemsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
+		Rent a = new DVD(new Movie("Title", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
 		cart.add(a);
 		Iterator<Rent> it = cart.getIterator();
 		Integer n = 0;
@@ -39,10 +39,10 @@ public class CartTest {
 	
 	@Test(expected = MaximumRentedItemsException.class)
 	public void testAddMaximumRentedItems() throws AlreadyRentedException, MaximumRentedItemsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
-		Rent c = new DVD(new Movie("TitoloW", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Drama"), LocalDate.of(2003, 4, 24)), 5.0).rent(4);
-		Rent d = new DVD(new Movie("TitoloZ", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Crime"), LocalDate.of(2017, 7, 8)), 7.0).rent(5);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2011, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
+		Rent c = new DVD(new Movie("TitleW", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2003, 01, 01)), 5.0).rent(4);
+		Rent d = new DVD(new Movie("TitleZ", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2017, 01, 01)), 7.0).rent(5);
 		cart.add(a);
 		cart.add(b);
 		cart.add(c);
@@ -51,14 +51,14 @@ public class CartTest {
 	
 	@Test(expected = AlreadyRentedException.class)
 	public void testAddAlreadyRented() throws AlreadyRentedException, MaximumRentedItemsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
 		cart.add(a);
 		cart.add(a);
 	}
 	
 	@Test
 	public void testRemove() throws AlreadyRentedException, MaximumRentedItemsException, AbsentRentException, EmptyRentListException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
 		cart.add(a);
 		cart.remove(a);
 		Iterator<Rent> it = cart.getIterator();
@@ -73,22 +73,22 @@ public class CartTest {
 
 	@Test(expected = EmptyRentListException.class)
 	public void testRemoveEmptyRentList() throws AlreadyRentedException, MaximumRentedItemsException, AbsentRentException, EmptyRentListException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
 		cart.remove(a);
 	}
 	
 	@Test(expected = AbsentRentException.class)
 	public void testRemoveAbsentRent() throws AlreadyRentedException, MaximumRentedItemsException, AbsentRentException, EmptyRentListException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2011, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.remove(b);
 	}
 	
 	@Test
 	public void testGetPrice() throws AlreadyRentedException, MaximumRentedItemsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13, new Over10DaysDiscount());
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
 		Double expectedPrice = (3*10)+((4*13)-(4*13*0.10));
@@ -97,8 +97,8 @@ public class CartTest {
 
 	@Test
 	public void testPayCardBalance() throws AlreadyRentedException, MaximumRentedItemsException, InsufficientFundsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
 		Double expectedPrice = customer.getCardBalance()-cart.getPrice();
@@ -108,8 +108,8 @@ public class CartTest {
 
 	@Test
 	public void testPayCardPoints() throws AlreadyRentedException, MaximumRentedItemsException, InsufficientFundsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
 		cart.pay();
@@ -119,8 +119,8 @@ public class CartTest {
 	
 	@Test
 	public void testPayRentedItems() throws AlreadyRentedException, MaximumRentedItemsException, InsufficientFundsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
 		cart.pay();
@@ -130,9 +130,9 @@ public class CartTest {
 	
 	@Test(expected = InsufficientFundsException.class)
 	public void testPayInsufficientFunds() throws AlreadyRentedException, MaximumRentedItemsException, InsufficientFundsException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		Rent b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2011, 6, 11)), 4.0).rent(13);
-		Rent c = new DVD(new Movie("TitoloZ", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Drama"), LocalDate.of(2018, 1, 1)), 10.0).rent(15);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		Rent b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 4.0).rent(13, new Over10DaysDiscount());
+		Rent c = new DVD(new Movie("TitleZ", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 10.0).rent(15, new Over10DaysDiscount());
 		cart.add(a);
 		cart.add(b);
 		cart.add(c);

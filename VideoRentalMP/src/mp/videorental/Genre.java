@@ -21,7 +21,7 @@ public class Genre implements Storable {
 	public boolean equals(Object obj) {
 		if (obj instanceof Genre) {
 			Genre other = (Genre) obj;
-			return description.equals(other.description);
+			return description.equalsIgnoreCase(other.description);
 		}
 		return false;
 	}

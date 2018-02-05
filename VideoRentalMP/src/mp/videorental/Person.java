@@ -54,8 +54,8 @@ public abstract class Person implements Storable {
 
 	@Override
 	public String toString() {
-		return getClass().getSimpleName() + "[socialSecurityNumber=" + socialSecurityNumber + ", name=" + name + ", surname=" + surname
-				+ ", birthday=" + birthday.toString() + "]";
+		return getClass().getSimpleName() + ": SocialSecurityNumber = " + socialSecurityNumber + ", Name = " + name + ", Surname = " + surname
+				+ ", Birthday = " + birthday.toString();
 	}
 	
 	

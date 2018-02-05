@@ -12,7 +12,7 @@ public class DVDTest {
 	DVD moviebox;
 	@Before
 	public void initFixture(){
-		moviebox = new DVD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		moviebox = new DVD(new Movie("Title", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class DVDTest {
 	
 	@Test
 	public void testEquals() {
-		DVD other = new DVD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD other = new DVD(new Movie("Title", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		assertFalse(moviebox.equals(other));
 		assertTrue(moviebox.equals(moviebox));
 	}

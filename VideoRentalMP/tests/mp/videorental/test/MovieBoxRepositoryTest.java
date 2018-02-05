@@ -12,8 +12,8 @@ public class MovieBoxRepositoryTest {
 	
 	private static Administrator defaultAdmin = new Administrator("123", "admin", "admin", LocalDate.of(1980, 6, 5), new Credentials("admin", "admin"));
 	private static Administrator admin = new Administrator("000", "test", "test", LocalDate.of(1970, 4, 10), new Credentials("test", "test"));
-	private static MovieBox movieBox1 = new BD(new Movie("test1", new Director("test", "test", LocalDate.of(1970, 4, 10)), new Genre("test"), LocalDate.of(2000, 10, 11)), 1.0);
-	private static MovieBox movieBox2 = new DVD(new Movie("test2", new Director("test", "test", LocalDate.of(1970, 4, 10)), new Genre("test"), LocalDate.of(2000, 10, 11)), 1.0);
+	private static MovieBox movieBox1 = new BD(new Movie("Title1", new Director("test", "test"), new Genre("test"), LocalDate.of(2000, 01, 01)), 1.0);
+	private static MovieBox movieBox2 = new DVD(new Movie("Title2", new Director("test", "test"), new Genre("test"), LocalDate.of(2000, 01, 01)), 1.0);
 	private static MovieBoxRepository repo;
 	
 	@BeforeClass

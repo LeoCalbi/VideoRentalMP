@@ -12,8 +12,8 @@ public class DirectorRepositoryTest {
 	
 	private static Administrator defaultAdmin = new Administrator("123", "admin", "admin", LocalDate.of(1980, 6, 5), new Credentials("admin", "admin"));
 	private static Administrator admin = new Administrator("000", "test", "test", LocalDate.of(1970, 4, 10), new Credentials("test", "test"));
-	private static Director director1 = new Director("test1", "test1", LocalDate.of(1970, 4, 10));
-	private static Director director2 = new Director("test2", "test2", LocalDate.of(1970, 4, 10));
+	private static Director director1 = new Director("test1", "test1");
+	private static Director director2 = new Director("test2", "test2");
 	private static DirectorRepository repo;
 	
 	@BeforeClass

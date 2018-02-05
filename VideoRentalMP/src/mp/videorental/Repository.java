@@ -49,6 +49,10 @@ public abstract class Repository<T extends Storable> implements Serializable{
 		return catalogue.stream();
 	}
 	
+	public Integer getSize() {
+		return catalogue.size();
+	}
+	
 	public abstract void write();
 	
 }

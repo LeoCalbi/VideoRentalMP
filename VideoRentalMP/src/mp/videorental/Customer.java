@@ -107,5 +107,11 @@ public abstract class Customer extends User {
 	public void remove(Administrator admin) throws InvalidAdminException, StorableNotPresentException {
 		CustomerRepository.getInstance().remove(this, admin);
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + ", Address=" + address + ", Telephone=" + telephone;
+	}
+	
 	
 }

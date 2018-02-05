@@ -29,7 +29,7 @@ import mp.videorental.StorableHandler;
   GenreRepositoryTest.class,
   MovieBoxRepositoryTest.class,
   MovieRepositoryTest.class,
-  StorableHandlerTest.class
+  //StorableHandlerTest.class
 })
 
 public class TestSuite {}

@@ -13,7 +13,7 @@ public class SeniorCustomerTest {
 	
 	@Before
 	public void initFixture() {
-		customer = new SeniorCustomer("123","Alessio", "Falai", LocalDate.of(1997, 10, 12), "Via caduti sul lavoro", "3347703001",new Credentials("falaiAlessio", "test"));
+		customer = new SeniorCustomer("000", "Test", "Test", LocalDate.of(1990, 01, 01), "TestAddress", "000000000", new Credentials("test", "test"));
 	}
 	
 	@Test
@@ -94,7 +94,7 @@ public class SeniorCustomerTest {
 	
 	@Test
 	public void testAddRentedItem() throws AlreadyRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD a = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		Rent b = a.rent(10);
 		Integer originalSize = customer.getRentedSize();
 		customer.addRentedItem(b);
@@ -104,7 +104,7 @@ public class SeniorCustomerTest {
 
 	@Test
 	public void testRestituition() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD a = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		Rent b = a.rent(10);
 		Integer originalSize = customer.getRentedSize();
 		customer.addRentedItem(b);
@@ -114,7 +114,7 @@ public class SeniorCustomerTest {
 
 	@Test
 	public void testRestituitionExpired() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD a = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		Rent b = a.rent(-1);
 		customer.addRentedItem(b);
 		customer.restitution(a);
@@ -124,20 +124,20 @@ public class SeniorCustomerTest {
 	
 	@Test(expected = EmptyRentListException.class)
 	public void testRestituitionEmptyList() throws EmptyRentListException, AbsentRentException, NotRentedException {
-		customer.restitution(new DVD(new Movie("Titolo", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0));
+		customer.restitution(new DVD(new Movie("Title", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0));
 	}
 	
 	@Test(expected = AbsentRentException.class)
 	public void testRestituitionAbsentRent() throws EmptyRentListException, AbsentRentException, AlreadyRentedException, NotRentedException {
-		Rent a = new DVD(new Movie("TitoloX", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Action"), LocalDate.of(2010, 5, 10)), 3.0).rent(10);
-		DVD b = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 5.5);
+		Rent a = new DVD(new Movie("TitleX", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2010, 01, 01)), 3.0).rent(10);
+		DVD b = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		customer.addRentedItem(a);
 		customer.restitution(b);
 	}
 
 	@Test(expected = NotRentedException.class)
 	public void testRestitutionNotRented() throws AlreadyRentedException, NotRentedException {
-		DVD a = new DVD(new Movie("TitoloY", new Director("Leonardo", "Calbi", LocalDate.of(1997, 3, 8)), new Genre("Comedy"), LocalDate.of(2000, 10, 11)), 5.5);
+		DVD a = new DVD(new Movie("TitleY", new Director("Test", "Test"), new Genre("Test"), LocalDate.of(2000, 01, 01)), 5.5);
 		Rent b = a.rent(10);
 		b.restitution();
 		b.restitution();
