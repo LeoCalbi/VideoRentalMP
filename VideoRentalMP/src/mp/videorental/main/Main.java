@@ -46,7 +46,6 @@ public class Main {
 			Customer customer = customerRepository.stream().filter((Customer c) -> c.access(customerCredentials)).findFirst().get();
 			Cart cart = new Cart(customer);
 			do {
-				
 				System.out.println("1) Rent\n2) Restitution\n3) Cart\n4) Card\n5) Exit\n");
 				customerChoice = in.nextInt();
 				switch(customerChoice) {

@@ -52,7 +52,7 @@ public abstract class Rent implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Rentable: [" + item.toString() + "], Price: " + getPrice() + ", Days: " + days + "\n";
+		return item.toString() + "\tPrice: " + getPrice() + ", Days: " + days + ", Rent date: " + rentDate.toString() + "\n";
 	}
 	
 }

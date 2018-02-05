@@ -58,7 +58,7 @@ public class Cart {
 	
 	@Override
 	public String toString() {
-		return toRent.toString();
+		return toRent.toString() + "\nPrice = " + getPrice();
 	}
 	
 }
